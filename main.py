@@ -21,7 +21,7 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Diákok Adatai")
-        self.setGeometry(100, 100, 1800, 600)
+        self.setGeometry(120, 100, 1990, 600)
 
         self.layout = QVBoxLayout()
         self.widget = QWidget()
@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.widget)
 
         self.table_widget = QTableWidget(self)
-        self.table_widget.setGeometry(315, 20, 1600, 400)
+        self.table_widget.setGeometry(365, 20, 1500, 400)
         #self.layout.addWidget(self.table_widget)
 
         #self.show_data()
@@ -40,27 +40,39 @@ class MainWindow(QMainWindow):
         self.layout.addWidget(self.input_widget)
 
         label1 = QLabel("Név: ", self)
-        label1.setGeometry(15, 70, 100, 30)
+        label1.setGeometry(15, 70, 100, 40)
         self.input_nev = QLineEdit(self)
-        self.input_nev.setGeometry(150, 70, 100, 30)
+        self.input_nev.setGeometry(150, 70, 150, 40)
 
+        label1 = QLabel("Magyar nyelv:", self)
+        label1.setGeometry(15, 120, 180, 40)
         self.input_magyar = QLineEdit(self)
-        self.input_magyar.setGeometry(15, 110, 100, 30)
+        self.input_magyar.setGeometry(200, 120, 100, 40)
 
+        label1 = QLabel("Történelem: ", self)
+        label1.setGeometry(15, 170, 160, 40)
         self.input_tortenelem = QLineEdit(self)
-        self.input_tortenelem.setGeometry(15, 150, 100, 30)
+        self.input_tortenelem.setGeometry(200, 170, 100, 40)
 
+        label1 = QLabel("Matematika: ", self)
+        label1.setGeometry(15, 220, 170, 40)
         self.input_matematika = QLineEdit(self)
-        self.input_matematika.setGeometry(15, 190, 100, 30)
+        self.input_matematika.setGeometry(200, 220, 100, 40)
 
+        label1 = QLabel("Idegen nyelv: ", self)
+        label1.setGeometry(15, 270, 170, 40)
         self.input_idegen_nyelv = QLineEdit(self)
-        self.input_idegen_nyelv.setGeometry(15, 230, 100, 30)
+        self.input_idegen_nyelv.setGeometry(200, 270, 100, 40)
 
+        label1 = QLabel("Igazolt : ", self)
+        label1.setGeometry(15, 320, 170, 40)
         self.input_igazolt_hianyzas = QLineEdit(self)
-        self.input_igazolt_hianyzas.setGeometry(15, 270, 100, 30)
+        self.input_igazolt_hianyzas.setGeometry(200, 320, 100, 40)
 
+        label1 = QLabel("Igazolatlan : ", self)
+        label1.setGeometry(15, 370, 170, 40)
         self.input_igazolatlan_hianyzas = QLineEdit(self)
-        self.input_igazolatlan_hianyzas.setGeometry(15, 310, 100, 30)
+        self.input_igazolatlan_hianyzas.setGeometry(200, 370, 100, 40)
 
         self.btn_hozzaadas = QPushButton("Hozzáadás", self)
         self.btn_hozzaadas.setGeometry(15, 490, 200, 50)
@@ -69,7 +81,7 @@ class MainWindow(QMainWindow):
         #self.input_layout.addWidget(self.btn_hozzaadas)
 
         self.btn_beolvas = QPushButton("Beolvasás", self)
-        self.btn_beolvas.setGeometry(15, 20, 150, 30)
+        self.btn_beolvas.setGeometry(15, 20, 150, 40)
         self.btn_beolvas.clicked.connect(self.beolvasas)
 
         # self.input_layout.addWidget(self.btn_beolvas)
