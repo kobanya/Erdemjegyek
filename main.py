@@ -82,6 +82,11 @@ class MainWindow(QMainWindow):
         self.btn_beolvas.setGeometry(15, 20, 150, 40)
         self.btn_beolvas.clicked.connect(self.beolvasas)
 
+        # A gomb hozzáadása és az eseménykezelő beállítása
+        self.btn_mentes = QPushButton("Mentés új fájlba", self)
+        self.btn_mentes.setGeometry(250, 490, 300, 50)
+        self.btn_mentes.clicked.connect(self.mentes)
+
         # self.input_layout.addWidget(self.btn_beolvas)
        # self.btn_beolvas = btn_beolvas
 
@@ -148,7 +153,7 @@ class MainWindow(QMainWindow):
         self.input_igazolatlan_hianyzas.clear()
 
     def beolvasas(self):           # a TXT beolvasása
-        file_path = "/home/bela/PycharmProjects/bizonyítvány/osztaly.txt"  # A fájl elérési útvonalát itt kell megadnod
+        file_path = "osztaly.txt"  # A fájl elérési útvonalát itt kell megadnod
 
         try: # ha tudod, olvasd be
             with open(file_path, "r") as file:
@@ -258,6 +263,22 @@ class MainWindow(QMainWindow):
 
         # Beviteli mezők tartalmának törlése
         self.clear_input_fields()
+
+    def mentes(self):
+        file_path = "uj.txt"  # Fájl elérési útvonala, ahol el szeretnéd menteni az adatokat
+
+        try:
+            with open(file_path, "w") as file:
+                for diak in self.diakok:
+                    # Adatok kiírása a fájlba, vesszővel elválasztva
+                    file.write(
+                        f"{diak.nev},{diak.magyar},{diak.tortenelem},{diak.matematika},{diak.idegen_nyelv},{diak.igazolt_hianyzas},{diak.igazolatlan_hianyzas}\n")
+
+            print("Az adatok sikeresen mentve.")
+
+        except IOError:
+            print("Hiba a fájl mentésekor.")
+
 
 
 
