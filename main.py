@@ -22,7 +22,7 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Diákok Adatai")
-        self.setGeometry(320, 400, 1990, 600)
+        self.setGeometry(320, 400, 2200, 600)
 
         self.layout = QVBoxLayout()
         self.widget = QWidget()
@@ -30,7 +30,8 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.widget)
 
         self.table_widget = QTableWidget(self)
-        self.table_widget.setGeometry(365, 20, 1500, 400)
+        self.table_widget.setGeometry(365, 20, 1800, 400)
+        self.table_widget.setSortingEnabled(True)
 
         self.input_layout = QVBoxLayout()
         self.input_widget = QWidget()
@@ -278,7 +279,7 @@ class MainWindow(QMainWindow):
                         f"{diak.nev},{diak.magyar},{diak.tortenelem},{diak.matematika},{diak.idegen_nyelv},{diak.igazolt_hianyzas},{diak.igazolatlan_hianyzas}\n")
 
             print("Az adatok sikeresen mentve.")
-            self.label_mentes.setText("Sikeres mentés! Nyissa meg az uj-txt fájlt ")
+            self.label_mentes.setText("Sikeres mentés! Nyissa meg az uj.txt fájlt ")
 
 
         except IOError:
