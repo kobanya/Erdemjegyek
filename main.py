@@ -22,7 +22,7 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Diákok Adatai")
-        self.setGeometry(120, 100, 1990, 600)
+        self.setGeometry(320, 400, 1990, 600)
 
         self.layout = QVBoxLayout()
         self.widget = QWidget()
@@ -86,6 +86,9 @@ class MainWindow(QMainWindow):
         self.btn_mentes = QPushButton("Mentés új fájlba", self)
         self.btn_mentes.setGeometry(250, 490, 300, 50)
         self.btn_mentes.clicked.connect(self.mentes)
+
+        self.label_mentes = QLabel(" ", self)
+        self.label_mentes.setGeometry(750, 500, 700, 30)
 
         # self.input_layout.addWidget(self.btn_beolvas)
        # self.btn_beolvas = btn_beolvas
@@ -275,6 +278,8 @@ class MainWindow(QMainWindow):
                         f"{diak.nev},{diak.magyar},{diak.tortenelem},{diak.matematika},{diak.idegen_nyelv},{diak.igazolt_hianyzas},{diak.igazolatlan_hianyzas}\n")
 
             print("Az adatok sikeresen mentve.")
+            self.label_mentes.setText("Sikeres mentés! Nyissa meg az uj-txt fájlt ")
+
 
         except IOError:
             print("Hiba a fájl mentésekor.")
