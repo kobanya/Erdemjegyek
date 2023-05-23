@@ -13,6 +13,7 @@ class Diak:
         self.igazolt_hianyzas = igazolt_hianyzas
         self.igazolatlan_hianyzas = igazolatlan_hianyzas
 
+    # Az átlag kiszámítása
     def atlag(self):
         return (self.magyar + self.tortenelem + self.matematika + self.idegen_nyelv) / 4.0
 
@@ -30,9 +31,6 @@ class MainWindow(QMainWindow):
 
         self.table_widget = QTableWidget(self)
         self.table_widget.setGeometry(365, 20, 1500, 400)
-        #self.layout.addWidget(self.table_widget)
-
-        #self.show_data()
 
         self.input_layout = QVBoxLayout()
         self.input_widget = QWidget()
@@ -95,11 +93,11 @@ class MainWindow(QMainWindow):
     def show_data(self):
         diakok = self.diakok
 
-        self.table_widget.setRowCount(len(diakok))
-        self.table_widget.setColumnCount(8)
+        self.table_widget.setRowCount(len(diakok)) # Sorok száma
+        self.table_widget.setColumnCount(8)         # Fix oszlopok száma
         self.table_widget.setHorizontalHeaderLabels(
             ["A diák neve", "Magyar", "Történelem", "Matematika", "Idegen Nyelv",
-             "Igazolt Hiányzás", "Igazolatlan Hiányzás", "Átlag"])
+             "Igazolt Hiányzás", "Igazolatlan Hiányzás", "Átlag"]) # Fix fejléc
 
         for row, diak in enumerate(diakok):
             self.table_widget.setItem(row, 0, QTableWidgetItem(diak.nev))
@@ -111,10 +109,10 @@ class MainWindow(QMainWindow):
             self.table_widget.setItem(row, 6, QTableWidgetItem(str(diak.igazolatlan_hianyzas)))
             self.table_widget.setItem(row, 7, QTableWidgetItem(str(diak.atlag())))
 
-        self.table_widget.resizeRowsToContents()
+        self.table_widget.resizeRowsToContents()      # Átméretezés
         self.table_widget.resizeColumnsToContents()
 
-    def hozzaadas(self):
+    def hozzaadas(self):                    # a beolvasott adatok egyeztetése az objektumokkal
         nev = self.input_nev.text()
         magyar = int(self.input_magyar.text())
         tortenelem = int(self.input_tortenelem.text())
@@ -124,10 +122,10 @@ class MainWindow(QMainWindow):
         igazolatlan_hianyzas = int(self.input_igazolatlan_hianyzas.text())
 
         diak = Diak(nev, magyar, tortenelem, matematika, idegen_nyelv, igazolt_hianyzas, igazolatlan_hianyzas)
-        self.diakok.append(diak)
+        self.diakok.append(diak)   #  Listához adás
 
         row = self.table_widget.rowCount()
-        self.table_widget.setRowCount(row + 1)
+        self.table_widget.setRowCount(row + 1)   # az Utolsó sor után adjuk hozzá
 
         self.table_widget.setItem(row, 0, QTableWidgetItem(diak.nev))
         self.table_widget.setItem(row, 1, QTableWidgetItem(str(diak.magyar)))
@@ -138,9 +136,9 @@ class MainWindow(QMainWindow):
         self.table_widget.setItem(row, 6, QTableWidgetItem(str(diak.igazolatlan_hianyzas)))
         self.table_widget.setItem(row, 7, QTableWidgetItem(str(diak.atlag())))
 
-        self.clear_input_fields()
+        self.clear_input_fields()  # mentés után a beviteli mezőket töröljük
 
-    def clear_input_fields(self):
+    def clear_input_fields(self):      # a beviteli mezők frissítése
         self.input_nev.clear()
         self.input_magyar.clear()
         self.input_tortenelem.clear()
@@ -149,13 +147,13 @@ class MainWindow(QMainWindow):
         self.input_igazolt_hianyzas.clear()
         self.input_igazolatlan_hianyzas.clear()
 
-    def beolvasas(self):
+    def beolvasas(self):           # a TXT beolvasása
         file_path = "/home/bela/PycharmProjects/bizonyítvány/osztaly.txt"  # A fájl elérési útvonalát itt kell megadnod
 
-        try:
+        try: # ha tudod, olvasd be
             with open(file_path, "r") as file:
                 for sor in file:
-                    adatok = sor.strip().split(",")
+                    adatok = sor.strip().split(",")   # az adatok darabolása vessző mentén
                     nev = adatok[0]
                     magyar = int(adatok[1])
                     tortenelem = int(adatok[2])
@@ -165,7 +163,7 @@ class MainWindow(QMainWindow):
                     igazolatlan_hianyzas = int(adatok[6])
 
                     diak = Diak(nev, magyar, tortenelem, matematika, idegen_nyelv, igazolt_hianyzas, igazolatlan_hianyzas)
-                    self.diakok.append(diak)
+                    self.diakok.append(diak)   # hozzáadjuk a listához
 
                     row = self.table_widget.rowCount()
                     self.table_widget.setRowCount(row + 1)
@@ -180,13 +178,13 @@ class MainWindow(QMainWindow):
                     self.table_widget.setItem(row, 7, QTableWidgetItem(str(diak.atlag())))
 
         except FileNotFoundError:
-            print("A fájl nem található.")
+            print("A fájl nem található.")  # ha nem találja a fájlt
 
-        self.table_widget.resizeRowsToContents()
+        self.table_widget.resizeRowsToContents()     # automatikus átméretezés
         self.table_widget.resizeColumnsToContents()
 
         # Beolvasás gomb letiltása
-        self.btn_beolvas.setEnabled(False)
+        self.btn_beolvas.setEnabled(False)  # ne tudjam többször beolvasni a listát csak egyszer
     def hozzaadas(self):
         # Beviteli mezők értékeinek lekérése
         nev = self.input_nev.text()
@@ -201,7 +199,7 @@ class MainWindow(QMainWindow):
         diak = Diak(nev, magyar, tortenelem, matematika, idegen_nyelv, igazolt_hianyzas, igazolatlan_hianyzas)
 
         # Diák hozzáadása a listához
-        self.diakok.append(diak)
+        self.diakok.append(diak)    # az új diák hozzáadaása a meglévő listához
 
         # Új sor hozzáadása a táblázathoz
         row = self.table_widget.rowCount()
