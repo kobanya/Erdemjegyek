@@ -1,6 +1,8 @@
+import random
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QPushButton, QLineEdit, \
     QVBoxLayout, QWidget, QLabel, QFileDialog
+import magyar
 
 
 class Diak:
@@ -94,7 +96,7 @@ class MainWindow(QMainWindow):
         #self.input_layout.addWidget(self.btn_bizonyitvany)
 
         self.label_mentes = QLabel(" ", self)
-        self.label_mentes.setGeometry(750, 500, 800, 30)
+        self.label_mentes.setGeometry(650, 490, 950, 30)
 
         # self.input_layout.addWidget(self.btn_beolvas)
        # self.btn_beolvas = btn_beolvas
@@ -299,11 +301,18 @@ class MainWindow(QMainWindow):
             if file_path:
                 try:
                     with open(file_path, "w") as file:
-                        file.write(f"Név: {diak.nev}\n")
+                        file.write(f'\n{">" * 25} Kőrösi Csoma Sándor Gimnázium {"<" * 25}\n\n')
+                        file.write(f'{" " * 20} 1102 Budapest, Kőrösi Csoma Sándor út 76{" " * 25}\n\n\n')
+                        file.write(f"Név:                 {random.choice(magyar.vezeteknev)} {diak.nev}\n")
+                        file.write(f'Születés helye:      {random.choice(list(magyar.megye_szekhely.values()))}\n')
+
+                        file.write(f"Anyja neve:          {random.choice(magyar.vezeteknev)} {random.choice(magyar.keresztnev_n)}\n")
+                        file.write(f"Állampolgársága:     Magyarország \n\n")
+                        file.write(f'{"__" * 40}\n\n\n')
                         file.write(f"Magyar nyelv: {diak.magyar}\n")
-                        file.write(f"Történelem: {diak.tortenelem}\n")
-                        file.write(f"Matematika: {diak.matematika}\n")
-                        file.write(f"Idegen nyelv: {diak.idegen_nyelv}\n")
+                        file.write(f"Történelem:   {diak.tortenelem}\n")
+                        file.write(f"Matematika:   {diak.matematika}\n")
+                        file.write(f"Idegen nyelv: {diak.idegen_nyelv}\n\n\n")
                         file.write(f"Igazolt hiányzás: {diak.igazolt_hianyzas}\n")
                         file.write(f"Igazolatlan hiányzás: {diak.igazolatlan_hianyzas}\n")
                         file.write(f"Átlag: {diak.atlag()}\n")
