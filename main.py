@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QPushButton, QLineEdit, \
-    QVBoxLayout, QWidget, QLabel
+    QVBoxLayout, QWidget, QLabel, QFileDialog
 
 
 class Diak:
@@ -88,8 +88,13 @@ class MainWindow(QMainWindow):
         self.btn_mentes.setGeometry(250, 490, 300, 50)
         self.btn_mentes.clicked.connect(self.mentes)
 
+        self.btn_bizonyitvany = QPushButton("Bizonyítvány nyomtatása", self)
+        self.btn_bizonyitvany.setGeometry(1650, 490, 400, 50)
+        self.btn_bizonyitvany.clicked.connect(self.nyomtat)
+        #self.input_layout.addWidget(self.btn_bizonyitvany)
+
         self.label_mentes = QLabel(" ", self)
-        self.label_mentes.setGeometry(750, 500, 700, 30)
+        self.label_mentes.setGeometry(750, 500, 800, 30)
 
         # self.input_layout.addWidget(self.btn_beolvas)
        # self.btn_beolvas = btn_beolvas
@@ -285,7 +290,30 @@ class MainWindow(QMainWindow):
         except IOError:
             print("Hiba a fájl mentésekor.")
 
-
+    def nyomtat(self):
+        selected_row = self.table_widget.currentRow()  # Kiválasztott sor lekérése
+        if selected_row >= 0:
+            diak = self.diakok[selected_row]  # Diák adatainak lekérése
+            file_path, _ = QFileDialog.getSaveFileName(self, "Bizonyítvány mentése", "",
+                                                       "Text Files (*.txt)")  # Fájl mentési helyének és nevének kiválasztása
+            if file_path:
+                try:
+                    with open(file_path, "w") as file:
+                        file.write(f"Név: {diak.nev}\n")
+                        file.write(f"Magyar nyelv: {diak.magyar}\n")
+                        file.write(f"Történelem: {diak.tortenelem}\n")
+                        file.write(f"Matematika: {diak.matematika}\n")
+                        file.write(f"Idegen nyelv: {diak.idegen_nyelv}\n")
+                        file.write(f"Igazolt hiányzás: {diak.igazolt_hianyzas}\n")
+                        file.write(f"Igazolatlan hiányzás: {diak.igazolatlan_hianyzas}\n")
+                        file.write(f"Átlag: {diak.atlag()}\n")
+                    self.label_mentes.setText(f"A(z) '{file_path}' fájl sikeresen mentve.")
+                except IOError:
+                    print("Hiba a fájl mentésekor.")
+            else:
+                print("Nem választottál mentési helyet.")
+        else:
+            print("Nincs kijelölt sor.")
 
 
 if __name__ == "__main__":
